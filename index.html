@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PuntoSabor — Landing</title>
+  <meta name="description" content="PuntoSabor conecta a los usuarios con huariques auténticos y ayuda a los emprendedores a crecer." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Just+Another+Hand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- ======= Header ======= -->
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="#" aria-label="Inicio PuntoSabor">
+        <img src="img/LogoPuntoSabor.png" alt="Logo de PuntoSabor" />
+      </a>
+
+      <!-- Toggle para menú móvil -->
+      <input type="checkbox" id="nav-toggle" />
+
+      <nav>
+        <ul id="main-nav">
+          <li><a href="#inicio"   data-route="inicio">Inicio</a></li>
+          <li><a href="#planes"   data-route="planes">Planes</a></li>
+          <li><a href="#contacto" data-route="contacto">Contactanos</a></li>
+          <li><a href="#perfil"   data-route="perfil">Perfil</a></li>
+          <li><a href="#promos"   data-route="promos">Promociones</a></li>
+          <li><a href="#zonas"    data-route="zonas">Zonas</a></li>
+        </ul>
+      </nav>
+
+      <label for="nav-toggle" aria-label="Abrir menú" class="md-hidden">☰ Menú</label>
+
+      <div class="bell" aria-label="Notificaciones" title="Notificaciones">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M12 2a6 6 0 0 0-6 6v3.17l-.59.59A1 1 0 0 0 6 14h12a1 1 0 0 0 .71-1.71l-.71-.71V8a6 6 0 0 0-6-6Z" fill="#111827"/>
+          <path d="M9 18a3 3 0 0 0 6 0" fill="#111827"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor donde se inyectarán las secciones -->
+  <main id="app" class="view"></main>
+
+  <!-- ======= Footer (compacto) ======= -->
+  <footer class="site-footer">
+    <div class="container footer-grid compact">
+      <div class="foot-brand">
+        <a href="#inicio" class="foot-logo" aria-label="PuntoSabor inicio" data-route="inicio">
+          <img src="img/LogoPuntoSabor.png" alt="Logo PuntoSabor">
+          <span>PuntoSabor</span>
+        </a>
+      </div>
+
+      <div class="foot-social">
+        <h4>Síguenos</h4>
+        <div class="social-row">
+          <a class="social" href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 16.8 2.8 2.8 0 0 0 12 9.2Zm5.3-.9a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/></svg>
+          </a>
+          <a class="social" href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M13 22v-8h3l1-4h-4V7.5c0-1.16.32-1.95 2-1.95h2V2.2A28.33 28.33 0 0 0 14.9 2C11.8 2 10 3.66 10 7.1V10H7v4h3v8h3Z"/></svg>
+          </a>
+          <a class="social" href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M18.7 7.2a6.7 6.7 0 0 1-3.7-2.2V15a4.9 4.9 0 1 1-4.9-4.9c.3 0 .6 0 .8.1v2.9a2.1 2.1 0 1 0 2.1 2.1V2h2.9a6.7 6.7 0 0 0 6.6 6.6V12a10 10 0 0 1-3.8-.8v-.1c-.4-.2-1-.5-1-.5Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container foot-bottom">
+      <small>© <span id="y"></span> PuntoSabor. Todos los derechos reservados.</small>
+    </div>
+  </footer>
+
+  <!-- ======= Router SPA con secciones por archivo ======= -->
+  <script>
+  (function(){
+    const app   = document.getElementById('app');
+    const NAV   = document.getElementById('main-nav');
+
+    const routes = {
+      inicio:   'sections/inicio.html',
+      planes:   'sections/planes.html',
+      contacto: 'sections/contacto.html',
+      perfil:   'sections/perfil.html',
+      promos:   'sections/promos.html',
+      zonas:    'sections/zonas.html'
+    };
+
+    async function load(route, push=true){
+      const file = routes[route] || routes['inicio'];
+      try{
+        const res  = await fetch(file, {cache:'no-cache'});
+        const html = res.ok ? await res.text() :
+          `<div class="container placeholder"><h2>Error</h2><p>No se pudo cargar <code>${file}</code>.</p></div>`;
+        app.innerHTML = html;
+        setActive(route);
+        if(push) history.pushState({route}, '', '#'+route);
+        const chk = document.getElementById('nav-toggle'); if(chk) chk.checked = false;
+        window.scrollTo({top:0, behavior:'smooth'});
+
+        // Inicialización por sección
+        if(route === 'perfil') initPerfil();
+      }catch(e){
+        app.innerHTML = `<div class="container placeholder"><h2>Ups</h2><p>${e}</p></div>`;
+      }
+    }
+
+    function setActive(route){
+      NAV.querySelectorAll('a').forEach(a=>{
+        a.classList.toggle('active', a.dataset.route === route);
+      });
+    }
+
+    document.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[data-route]');
+      if(!a) return;
+      const route = a.dataset.route;
+      if(routes[route]){
+        e.preventDefault();
+        load(route, true);
+      }
+    });
+
+    window.addEventListener('popstate', ()=>{
+      const route = (location.hash || '#inicio').slice(1);
+      load(route, false);
+    });
+
+    // Año footer + carga inicial
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const start = (location.hash || '#inicio').slice(1);
+    load(start, false);
+
+    /* ======= LÓGICA DE PERFIL ======= */
+    function initPerfil(){
+      const $ = (sel) => app.querySelector(sel);
+      const bio         = $('#bio');
+      const fileBanner  = $('#fileBanner');
+      const bannerPrev  = $('#bannerPreview');
+
+      const btnUpload   = $('#btnUpload');
+      const btnRemove   = $('#btnRemoveImg');
+      const btnEdit     = $('#btnEdit');
+      const btnSave     = $('#btnSave');
+      const btnDelete   = $('#btnDelete');
+      const btnBackTop  = app.querySelector('.back-btn');
+      const btnGoBack   = $('#btnGoBack');
+      const btnPlus     = $('#btnPlus');
+
+      // Restaura desde localStorage
+      bio.value = localStorage.getItem('perfil.bio') || '';
+      const imgData = localStorage.getItem('perfil.banner');
+      if(imgData){ bannerPrev.src = imgData; } else { bannerPrev.removeAttribute('src'); }
+
+      // Subir imagen
+      btnUpload?.addEventListener('click', () => fileBanner.click());
+      fileBanner?.addEventListener('change', (e)=>{
+        const file = e.target.files?.[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          bannerPrev.src = reader.result;
+          localStorage.setItem('perfil.banner', reader.result);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // Borrar imagen
+      btnRemove?.addEventListener('click', ()=>{
+        bannerPrev.removeAttribute('src');
+        fileBanner.value = '';
+        localStorage.removeItem('perfil.banner');
+      });
+
+      // Editar / Guardar / Eliminar
+      btnEdit?.addEventListener('click', ()=>{ bio.removeAttribute('readonly'); bio.focus(); });
+      btnSave?.addEventListener('click', ()=>{
+        localStorage.setItem('perfil.bio', bio.value.trim());
+        bio.setAttribute('readonly','readonly');
+      });
+      btnDelete?.addEventListener('click', ()=>{
+        bio.value = '';
+        localStorage.removeItem('perfil.bio');
+        bio.setAttribute('readonly','readonly');
+      });
+
+      // Regresar
+      const goBack = () => history.back();
+      btnBackTop?.addEventListener('click', goBack);
+      btnGoBack?.addEventListener('click', goBack);
+
+      // Acción del FAB (ejemplo: enfocar textarea)
+      btnPlus?.addEventListener('click', ()=>{ bio.removeAttribute('readonly'); bio.focus(); });
+    }
+  })();
+</script>
+
+</body>
+</html>

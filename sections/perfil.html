@@ -1,0 +1,56 @@
+<section class="profile">
+  <div class="container">
+
+    <!-- Barra superior (volver) -->
+    <div class="profile-top">
+      <button class="icon-btn back-btn" aria-label="Regresar">
+        <!-- Flecha -->
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+          <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2Z"/>
+        </svg>
+      </button>
+
+      <!-- “LOGO” (opcional, solo visual) -->
+      <button class="pill-btn" id="btnLogo" type="button">LOGO</button>
+    </div>
+
+    <!-- Grid principal -->
+    <div class="profile-grid">
+      <!-- Imagen -->
+      <div class="profile-media card">
+        <img id="bannerPreview" src="../img/LogoDeHuarique.png" alt="Imagen del negocio">
+
+      </div>
+
+      <!-- Descripción -->
+      <div class="profile-text card">
+        <textarea id="bio"
+          placeholder="Escribe aquí la descripción de tu negocio..."
+          spellcheck="false" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="profile-actions">
+      <input id="fileBanner" type="file" accept="image/*" hidden>
+      <button class="btn" id="btnUpload">Subir imagen</button>
+      <button class="btn" id="btnRemoveImg">Borrar imagen</button>
+
+      <button class="btn" id="btnEdit">Editar</button>
+      <button class="btn" id="btnSave">Guardar</button>
+      <button class="btn btn-danger" id="btnDelete">Eliminar</button>
+    </div>
+
+    <!-- Regresar grande -->
+    <div class="profile-back">
+      <button class="btn btn-large" id="btnGoBack">REGRESAR</button>
+    </div>
+
+    <!-- Botón flotante “+” -->
+    <button class="fab" id="btnPlus" aria-label="Agregar">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+        <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6Z"/>
+      </svg>
+    </button>
+  </div>
+</section>
